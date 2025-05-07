@@ -1,0 +1,7 @@
+# GCP service account keys
+firebase-service-account.json
+Backend/app/leave-management-app-457708-40d556b35a47.json
+Frontend\src\environments
+.env
+.venv
+node_modules
