@@ -28,3 +28,6 @@ steps:
     args: ['app', 'deploy', '--quiet']
 
 timeout: 900s
+
+options:
+  logging: CLOUD_LOGGING_ONLY
