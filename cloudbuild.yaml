@@ -10,7 +10,7 @@ steps:
 
   - name: 'gcr.io/cloud-builders/npm'
     dir: 'Frontend'
-    args: ['run', 'build', '--', '--configuration=production']
+    args: ['run', 'build']
 
   # Deploy Angular app to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
