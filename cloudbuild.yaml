@@ -8,7 +8,7 @@ steps:
     dir: 'Frontend'
     args: ['install']
 
-  - name: 'gcr.io/cloud-builders/npm'
+  - name: 'node:18-alpine'
     dir: 'Frontend'
     args: ['run', 'build']
 
