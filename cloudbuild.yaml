@@ -1,0 +1,36 @@
+steps:
+
+# Step 1: Build Angular app
+- name: 'gcr.io/cloud-builders/npm'
+  dir: 'Frontend'
+  args: ['install']
+
+- name: 'gcr.io/cloud-builders/npm'
+  dir: 'Frontend'
+  args: ['run', 'build', '--', '--configuration=production']
+
+# Step 2: Deploy backend to App Engine
+- name: 'gcr.io/cloud-builders/gcloud'
+  dir: 'Backend'
+  args: ['app', 'deploy', '--quiet']
+
+# Step 3: Build Docker image and push to GCR
+- name: 'gcr.io/cloud-builders/docker'
+  dir: 'Backend'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/leave-management-backend', '.']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/leave-management-backend']
+
+# Step 4: Deploy to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: [
+    'run', 'deploy', 'leave-management-backend',
+    '--image', 'gcr.io/$PROJECT_ID/leave-management-backend',
+    '--platform', 'managed',
+    '--region', 'us-central1',
+    '--allow-unauthenticated'
+  ]
+
+images:
+- gcr.io/$PROJECT_ID/leave-management-backend
