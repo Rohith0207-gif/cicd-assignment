@@ -10,7 +10,7 @@ steps:
 
   - name: 'node:18-alpine'
     dir: 'Frontend'
-    args: ['run', 'build']
+    args: ['npm','run', 'build']
 
   # Deploy Angular app to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
