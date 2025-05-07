@@ -1,0 +1,64 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>My Leave Requests</h1>
+    <div class="header-actions">
+      <button class="new-request-button" (click)="navigateToLeaveRequest()">
+        New Leave Request
+      </button>
+      <button class="logout-button" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <div *ngIf="isLoading" class="loading-message">
+      Loading leave requests...
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="!isLoading && leaveRequests.length === 0" class="no-requests">
+      <p>No leave requests found. Click "New Leave Request" to create one.</p>
+    </div>
+
+    <div *ngIf="!isLoading && leaveRequests.length > 0" class="requests-container">
+      <div class="table-container">
+        <table class="leave-requests-table">
+          <thead>
+            <tr>
+              <th>Leave Type</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Reason</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let request of leaveRequests">
+              <td>{{ request.leave_type }}</td>
+              <td>{{ request.start_date | date:'mediumDate' }}</td>
+              <td>{{ request.end_date | date:'mediumDate' }}</td>
+              <td>{{ request.reason }}</td>
+              <td>
+                <span class="status-badge" [ngClass]="getStatusClass(request.status)">
+                  {{ request.status }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                <button *ngIf="request.status === 'Pending'" 
+                        class="delete-button" 
+                        (click)="deleteLeave(request.leave_id)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> 

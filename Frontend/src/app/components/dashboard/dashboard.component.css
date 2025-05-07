@@ -1,0 +1,243 @@
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: var(--light-bg);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+}
+
+.dashboard-header h1 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.new-request-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(67, 97, 238, 0.2);
+}
+
+.new-request-button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
+}
+
+.logout-button {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(114, 9, 183, 0.2);
+}
+
+.logout-button:hover {
+  background-color: #5f0b9a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(114, 9, 183, 0.3);
+}
+
+.requests-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.requests-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.summary-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+.summary-card h3 {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.summary-card .count {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.summary-card .count.pending {
+  color: var(--warning-color);
+}
+
+.summary-card .count.approved {
+  color: var(--success-color);
+}
+
+.summary-card .count.rejected {
+  color: var(--danger-color);
+}
+
+.leave-requests-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.leave-requests-table th,
+.leave-requests-table td {
+  padding: 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.leave-requests-table th {
+  background-color: var(--light-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.leave-requests-table tr:last-child td {
+  border-bottom: none;
+}
+
+.leave-requests-table tr:hover {
+  background-color: rgba(67, 97, 238, 0.05);
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background-color: var(--warning-color);
+  color: var(--text-primary);
+}
+
+.status-approved {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.status-rejected {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.loading-message,
+.error-message,
+.no-requests {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  font-size: 1.1rem;
+}
+
+.loading-message {
+  color: var(--primary-color);
+}
+
+.error-message {
+  color: var(--danger-color);
+}
+
+.approve-button {
+  background-color: #28a745;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.approve-button:hover {
+  background-color: #218838;
+}
+
+.reject-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reject-button:hover {
+  background-color: #c82333;
+}
+
+.delete-button {
+  background-color: #f8f9fa;
+  color: #dc3545;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #dc3545;
+  color: white;
+} 

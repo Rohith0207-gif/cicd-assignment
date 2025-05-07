@@ -1,0 +1,99 @@
+<div class="leave-request-container">
+  <div class="leave-request-card">
+    <h2>Submit Leave Request</h2>
+    
+    <div *ngIf="isManager" class="manager-message">
+      <p>Managers are not allowed to submit leave requests. Please use the dashboard to manage employee leave requests.</p>
+      <button class="dashboard-button" (click)="navigateToDashboard()">Go to Dashboard</button>
+    </div>
+
+    <form *ngIf="!isManager" [formGroup]="leaveForm" (ngSubmit)="onSubmit()" class="leave-request-form">
+      <div class="form-group">
+        <label for="leave_type">Leave Type</label>
+        <select
+          id="leave_type"
+          formControlName="leave_type"
+          [class.is-invalid]="leaveForm.get('leave_type')?.invalid && leaveForm.get('leave_type')?.touched"
+        >
+          <option value="">Select leave type</option>
+          <option *ngFor="let type of leaveTypes" [value]="type">{{ type }}</option>
+        </select>
+        <div class="error-message" *ngIf="leaveForm.get('leave_type')?.invalid && leaveForm.get('leave_type')?.touched">
+          Please select a leave type
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="leaveForm.get('leave_type')?.value === 'Other'">
+        <label for="other_type">Specify Leave Type</label>
+        <input
+          type="text"
+          id="other_type"
+          formControlName="other_type"
+          placeholder="Enter your leave type"
+          [class.is-invalid]="leaveForm.get('other_type')?.invalid && leaveForm.get('other_type')?.touched"
+        />
+        <div class="error-message" *ngIf="leaveForm.get('other_type')?.invalid && leaveForm.get('other_type')?.touched">
+          Please specify the leave type
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="start_date">Start Date</label>
+        <input
+          type="date"
+          id="start_date"
+          formControlName="start_date"
+          (change)="validateDates()"
+          [class.is-invalid]="leaveForm.get('start_date')?.invalid && leaveForm.get('start_date')?.touched"
+        />
+        <div class="error-message" *ngIf="leaveForm.get('start_date')?.invalid && leaveForm.get('start_date')?.touched">
+          Please select a start date
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="end_date">End Date</label>
+        <input
+          type="date"
+          id="end_date"
+          formControlName="end_date"
+          (change)="validateDates()"
+          [class.is-invalid]="leaveForm.get('end_date')?.invalid && leaveForm.get('end_date')?.touched"
+        />
+        <div class="error-message" *ngIf="leaveForm.get('end_date')?.invalid && leaveForm.get('end_date')?.touched">
+          <span *ngIf="leaveForm.get('end_date')?.errors?.['required']">Please select an end date</span>
+          <span *ngIf="leaveForm.get('end_date')?.errors?.['invalidDate']">End date must be after start date</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="reason">Reason</label>
+        <textarea
+          id="reason"
+          formControlName="reason"
+          rows="4"
+          placeholder="Please provide a detailed reason for your leave request"
+          [class.is-invalid]="leaveForm.get('reason')?.invalid && leaveForm.get('reason')?.touched"
+        ></textarea>
+        <div class="error-message" *ngIf="leaveForm.get('reason')?.invalid && leaveForm.get('reason')?.touched">
+          <span *ngIf="leaveForm.get('reason')?.errors?.['required']">Please provide a reason</span>
+          <span *ngIf="leaveForm.get('reason')?.errors?.['minlength']">Reason must be at least 10 characters long</span>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="cancel-button" (click)="navigateToDashboard()">
+          Cancel
+        </button>
+        <button type="submit" [disabled]="leaveForm.invalid || isLoading" class="submit-button">
+          <span *ngIf="!isLoading">Submit Request</span>
+          <span *ngIf="isLoading">Submitting...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div> 

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+requests
+pydantic
+python-jose[cryptography]
+firebase-admin
+google-cloud-bigquery
+google-auth
+fastapi-middleware-cors

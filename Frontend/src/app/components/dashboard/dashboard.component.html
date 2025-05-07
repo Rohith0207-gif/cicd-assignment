@@ -1,0 +1,79 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>{{ isManager ? 'Leave Management Dashboard (Manager View)' : 'My Leave Requests' }}</h1>
+    <div class="header-actions">
+      <button *ngIf="!isManager" class="new-request-button" (click)="navigateToLeaveRequest()">
+        New Leave Request
+      </button>
+      <button class="logout-button" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <div *ngIf="isLoading" class="loading-message">
+      Loading leave requests...
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="!isLoading && leaveRequests.length === 0" class="no-requests">
+      <p *ngIf="!isManager">No leave requests found. Click "New Leave Request" to create one.</p>
+      <p *ngIf="isManager">No leave requests found.</p>
+    </div>
+
+    <div *ngIf="!isLoading && leaveRequests.length > 0" class="requests-container">
+      <div class="table-container">
+        <table class="leave-requests-table">
+          <thead>
+            <tr>
+              <th *ngIf="isManager">Employee ID</th>
+              <th>Leave Type</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Reason</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let request of leaveRequests">
+              <td *ngIf="isManager">{{ request.employeeId }}</td>
+              <td>{{ request.type }}</td>
+              <td>{{ request.startDate | date:'mediumDate' }}</td>
+              <td>{{ request.endDate | date:'mediumDate' }}</td>
+              <td>{{ request.reason }}</td>
+              <td>
+                <span class="status-badge" [ngClass]="getStatusClass(request.status)">
+                  {{ request.status || 'Pending' }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                <div *ngIf="isManager">
+                  <button *ngIf="request.status === 'Pending'" 
+                          class="approve-button" 
+                          (click)="approveLeave(request.id)">
+                    Approve
+                  </button>
+                  <button *ngIf="request.status === 'Pending'" 
+                          class="reject-button" 
+                          (click)="rejectLeave(request.id)">
+                    Reject
+                  </button>
+                </div>
+                <button *ngIf="!isManager && (!request.status || request.status === 'Pending')" 
+                        class="delete-button" 
+                        (click)="deleteLeave(request.id)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> 
