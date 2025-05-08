@@ -5,3 +5,4 @@ pydantic
 firebase-admin
 google-cloud-bigquery
 google-auth
+fastapi-middleware-cors
