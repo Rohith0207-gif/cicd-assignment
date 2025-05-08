@@ -16,7 +16,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
       'run', 'deploy', 'leave-management-frontend',
-      '--source=Frontend/dist/leave-management-frontend',
+      '--source=Frontend',
       '--platform', 'managed',
       '--region', 'us-central1',
       '--allow-unauthenticated'
